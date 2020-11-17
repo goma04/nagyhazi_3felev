@@ -52,30 +52,44 @@ public class ApplicationFrame extends JFrame {
 
 	}
 
-	public void createNewTeamUI() {		
+	public void createNewTeamUI() {
 		setTitle("Csapat felvétele");
-		
+
 		JLabel text = new JLabel("Válassz a sportágak közül!");
+
+		Font welcomeFont = new Font("serif", Font.PLAIN, 40);
+		text.setForeground(Color.orange);
+		text.setFont(welcomeFont);
+
 		top.add(text);
-		top.validate(); //Frissítjük a tartalmat ezzel a függvénnyel
-		
-		//center.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10)); //Hogy ne lógjon rá a szélére
-		center.setLayout(new GridLayout(1, 3, 0, 0));
-		center.add(new JButton("Labdarugás"));
-		center.add(new JButton("Kézilabda"));
-		center.add(new JButton("Kosárlabda"));
-		center.validate();
+		top.validate(); // Frissítjük a tartalmat ezzel a függvénnyel
+
+		// center.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10)); //Hogy ne
+		// lógjon rá a szélére
+		/*
+		 * center.setLayout(new GridLayout(1, 3, 0, 0)); center.add(new
+		 * JButton("Labdarugás")); center.add(new JButton("Kézilabda")); center.add(new
+		 * JButton("Kosárlabda")); center.validate();
+		 */
 	}
 
 	public void listTeamUI() {
 		// cim.setText("Csapatok Adatai");
+
+		JLabel text = new JLabel("Csapat törlése");
+
+		Font welcomeFont = new Font("serif", Font.PLAIN, 40);
+		text.setForeground(Color.red);
+		text.setFont(welcomeFont);
+
+		top.add(text);
 	}
 
 	public ApplicationFrame() {
 		super("GoSport - Sportegyesület Nyilvántartó");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(780, 430);
-		setLayout(new BorderLayout(40,40));
+		setMinimumSize(new Dimension(800, 400));
+		setLayout(new BorderLayout(40, 40));
 
 		top = new JPanel();
 		center = new JPanel();
@@ -84,20 +98,11 @@ public class ApplicationFrame extends JFrame {
 		Font welcomeFont = new Font("serif", Font.PLAIN, 40);
 		welcomeText.setForeground(Color.orange);
 		welcomeText.setFont(welcomeFont);
-		
 
 		top.add(welcomeText);
-		
 
 		add(top, BorderLayout.NORTH);
 		add(center, BorderLayout.CENTER);
-
-		/*
-		 * cimFont = new Font("serif", Font.PLAIN, 40);
-		 *  cim = new JLabel("teszt");
-		 * cim.setForeground(Color.orange);
-		 *  cim.setFont(cimFont); top.add(cim);
-		 */
 
 		initMenu();
 	}
@@ -112,14 +117,13 @@ public class ApplicationFrame extends JFrame {
 			for (int i = 0; i < componentsCenter.length; i++) {
 				componentsCenter[i].setVisible(false);
 			}
-			
+
 			for (int i = 0; i < componentsTop.length; i++) {
 				componentsTop[i].setVisible(false);
 			}
-			
+
 			top.removeAll();
 			center.removeAll();
-			
 
 			// Megnézzük, hogy melyik gombot nyomták meg
 			if (actionEvent.getActionCommand() == "Csapatok kilistázása") {
