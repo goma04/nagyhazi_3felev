@@ -4,14 +4,14 @@ import java.util.UUID;
 
 public class Team {
 	int letszam;
-	String ID;
+	UUID ID;
 	
 	Team(int letszam){
 		this.letszam = letszam;
-		ID = UUID.randomUUID().toString();
+		ID = UUID.randomUUID();
 	}
 	
 	public void printTeam() {
-		System.out.println("letszam: " + letszam +"  id: " + ID.substring(0,8));
+		System.out.println("letszam: " + letszam +"  id: " + ID.toString().substring(0,8));
 	}
 }

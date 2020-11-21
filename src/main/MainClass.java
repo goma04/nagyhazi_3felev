@@ -18,9 +18,9 @@ public class MainClass {
 		teamData.addTeam(11);
 		teamData.addTeam(5);
 		
-		Controller controller = new Controller(memberData, teamData);
+		Controller controller = new Controller(memberData,teamData, frame);
 		
-		controller.printTeams();
+
 		
 		
 		

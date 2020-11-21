@@ -8,17 +8,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ListTeamUI {
-	private JPanel top;
-	private JPanel center;
-	private JFrame frame;
+	private JPanel top, bottom, center;
+	protected ApplicationFrame frame;
 	
-	public ListTeamUI(JFrame frame, JPanel top, JPanel center){
+	public ListTeamUI(ApplicationFrame frame){
 		this.frame = frame;
-		this.top = top;
-		this.center = center;
+		this.top = frame.getTop();
+		this.center = frame.getCenter();
+		this.bottom = frame.getBottom();
 	}
 
 	public void displayListTeam() {
+		frame.removeOldComponents();	
 		frame.setTitle("Csapatok Adatai");
 
 		JLabel text = new JLabel("Csapat törlése");
