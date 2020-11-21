@@ -17,6 +17,10 @@ public class ApplicationFrame extends JFrame {
 	JMenuItem[] menupont;
 	JPanel top, center, bottom;
 	GridBagConstraints gbc;
+	NewTeamUI newTeam;
+	ListTeamUI listTeam;
+	NewMemberUI newMember;
+	ListMembersUI listMembers;
 
 	void initMenu() {
 		JMenuBar menubar = new JMenuBar();
@@ -25,14 +29,12 @@ public class ApplicationFrame extends JFrame {
 		sugo = new JMenu("Súgó");
 		MenuActionListener menuBtnListener = new MenuActionListener();
 
-		menupont = new JMenuItem[6];
+		menupont = new JMenuItem[4];
 		menupont[0] = new JMenuItem("Csapat felvétele");
 		menupont[1] = new JMenuItem("Csapatok kilistázása");
 		menupont[2] = new JMenuItem("Tag felvétele");
 		menupont[3] = new JMenuItem("Tagok listázása");
-		menupont[4] = new JMenuItem("Item 5");
-		menupont[5] = new JMenuItem("Súgó");
-
+		
 		for (int i = 0; i < menupont.length; i++) {
 			menupont[i].addActionListener(menuBtnListener); // ActionListener az összes menüpontra
 		}
@@ -52,37 +54,8 @@ public class ApplicationFrame extends JFrame {
 
 	}
 
-	public void createNewTeamUI() {
-		setTitle("Csapat felvétele");
-
-		JLabel text = new JLabel("Válassz a sportágak közül!");
-
-		Font welcomeFont = new Font("serif", Font.PLAIN, 40);
-		text.setForeground(Color.orange);
-		text.setFont(welcomeFont);
-
-		top.add(text);
-		top.validate(); // Frissítjük a tartalmat ezzel a függvénnyel
-
-		// center.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10)); //Hogy ne
-		// lógjon rá a szélére
-		/*
-		 * center.setLayout(new GridLayout(1, 3, 0, 0)); center.add(new
-		 * JButton("Labdarugás")); center.add(new JButton("Kézilabda")); center.add(new
-		 * JButton("Kosárlabda")); center.validate();
-		 */
-	}
-
 	public void listTeamUI() {
-		// cim.setText("Csapatok Adatai");
 
-		JLabel text = new JLabel("Csapat törlése");
-
-		Font welcomeFont = new Font("serif", Font.PLAIN, 40);
-		text.setForeground(Color.red);
-		text.setFont(welcomeFont);
-
-		top.add(text);
 	}
 
 	public ApplicationFrame() {
@@ -93,6 +66,7 @@ public class ApplicationFrame extends JFrame {
 
 		top = new JPanel();
 		center = new JPanel();
+		bottom = new JPanel();
 
 		JLabel welcomeText = new JLabel("Üdvözünk a GoSport nyilvántartóban!");
 		Font welcomeFont = new Font("serif", Font.PLAIN, 40);
@@ -103,8 +77,19 @@ public class ApplicationFrame extends JFrame {
 
 		add(top, BorderLayout.NORTH);
 		add(center, BorderLayout.CENTER);
+		add(bottom, BorderLayout.SOUTH);
+
+		newTeam = new NewTeamUI(this, top, center, bottom, new MenuActionListener());    
+		listTeam = new ListTeamUI(this, top, center);
+		newMember = new NewMemberUI(this, top, center, bottom, new MenuActionListener());
+		listMembers = new ListMembersUI(this, top, center);
 
 		initMenu();
+	}
+	
+	private void displaySugo() {
+		JLabel sugoText = new JLabel("teszt");
+		center.add(sugoText);
 	}
 
 	public class MenuActionListener implements ActionListener {
@@ -124,14 +109,41 @@ public class ApplicationFrame extends JFrame {
 
 			top.removeAll();
 			center.removeAll();
+			
+			System.out.println(actionEvent.getActionCommand());
 
 			// Megnézzük, hogy melyik gombot nyomták meg
-			if (actionEvent.getActionCommand() == "Csapatok kilistázása") {
-				listTeamUI();
+			switch (actionEvent.getActionCommand()) {
+			case "Csapatok kilistázása":
+				listTeam.displayListTeam();
+				break;
+			case "Csapat felvétele":
+				newTeam.displayChooseSport();
+				break;
 
-			}
-			if (actionEvent.getActionCommand() == "Csapat felvétele") {
-				createNewTeamUI();
+			case "Tag felvétele":
+				newMember.displayNewMemberUI();
+				break;
+			case "Tagok listázása":
+				listMembers.displayListMembersUI();
+				break;
+			case "Labdarugás":
+				newTeam.displayFootball();
+				break;
+			case "Kosárlabda":
+				newTeam.displayBasketball();
+				break;
+			case "tovabbNewMember":
+				break;
+			case "tovabbNewTeam":
+				break;
+			case "stage1":
+				newTeam.displayChooseSport();
+				break;
+			case "Súgó":
+				System.out.println("most");
+				displaySugo();
+				break;
 			}
 		}
 	}
