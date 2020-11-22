@@ -9,37 +9,43 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 
-import view.ApplicationFrame.MenuActionListener;
+import model.MemberData;
+import model.TeamData;
+
 
 public class NewTeamUI extends NewThingUI {
-	private JButton foci;
-	private JButton kosar;
-	private JButton kezi;
-	private JTextField coach1, coach2, girlNumber, leaderName, annualSponsorship;
+	private JButton foci, kosar, kezi, addMember;
+	private JTextField coach1, coach2, girlNumber, leaderName, annualSponsorship, name;
+	private MemberData memberData;
+	private JComboBox<Object> members;
+	private boolean football, handball, basketball; //azt mondják meg, hogy amikor mentünk csapatot, melyik csapatot választotta a felhasználó (tehát épp milyen csapatot kell felvenni)
 
-	
-	
-	
-	public NewTeamUI(ApplicationFrame frame) {
+	public NewTeamUI(ApplicationFrame frame, MemberData memberData) {
 		super(frame);
-		
+
 		foci = new JButton("Labdarugás");
 		kosar = new JButton("Kosárlabda");
 		kezi = new JButton("Kézilabda");
+		addMember = new JButton("Felvétel");
 		coach1 = new JTextField();
 		coach2 = new JTextField();
 		girlNumber = new JTextField();
 		leaderName = new JTextField();
+		name = new JTextField();
 		annualSponsorship = new JTextField();
-	}	
+		this.memberData = memberData;
+		football =false;
+		handball =false;
+		basketball =false;
+	}
 
-	//Megjeleníti azt a menüpontot, ahol ki kell választani a sportágat
+	// Megjeleníti azt a menüpontot, ahol ki kell választani a sportágat
 	public void displayChooseSport() {
-		frame.removeOldComponents();		
+		frame.removeOldComponents();
 		frame.setTitle("Csapat felvétele");
-		
-		
+
 		System.out.println("displayChooseSport");
 
 		top.add(new JLabel("Válassz a sportágak közül!"));
@@ -50,16 +56,15 @@ public class NewTeamUI extends NewThingUI {
 		center.add(foci);
 		center.add(kezi);
 		center.add(kosar);
-		
+
 		setComponentsVisible();
-		center.validate();		
+		center.validate();
 	}
 
-	
 	// Új focicsapat felvételekor megjeleníti a szükséges elemeket
 	public void displayFootball() {
-		frame.removeOldComponents();		
-		
+		frame.removeOldComponents();
+
 		top.add(new JLabel("Adja meg a csapat adatait!"));
 
 		center.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
@@ -70,17 +75,12 @@ public class NewTeamUI extends NewThingUI {
 		center.add(new JLabel("2. edzõ neve: "));
 		center.add(coach2);
 
-		JPanel[] unvisibleComponent = new JPanel[5]; // fantom panelek, hogy normálisan nézzen ki a felület
-		for (JPanel panel : unvisibleComponent) {
-			panel = new JPanel();
-			center.add(panel);
-		}
-		
+		displayName();
 
-		
 		setComponentsVisible();
 		tovabb.setActionCommand("tovabbNewTeam");
-		vissza.setActionCommand("stage1"); //innen a csapatválasztóba kell visszalépni
+		vissza.setActionCommand("stage1"); // innen a csapatválasztóba kell visszalépni
+		tovabb.setText("Tovább");
 		bottomButtons();
 		top.validate();
 		center.validate();
@@ -88,9 +88,14 @@ public class NewTeamUI extends NewThingUI {
 		frame.pack();
 	}
 
+	private void displayName() {
+		center.add(new JLabel("Csapat neve: "));
+		center.add(name);
+	}
+
 	// Új kosárlabda csapat felvételekor megjeleníti a szükséges elemeket
 	public void displayBasketball() {
-		frame.removeOldComponents();		
+		frame.removeOldComponents();
 
 		top.add(new JLabel("Adja meg a csapat adatait!"));
 
@@ -101,52 +106,88 @@ public class NewTeamUI extends NewThingUI {
 		center.add(girlNumber);
 		center.add(new JLabel("Pompom lányok vezetõjének a neve: "));
 		center.add(leaderName);
-
-		JPanel[] unvisibleComponent = new JPanel[5]; // fantom panelek, hogy normálisan nézzen ki a felület
-		for (JPanel panel : unvisibleComponent) {
-			panel = new JPanel();
-			center.add(panel);
-		}
+		displayName();
 
 		setComponentsVisible();
 		tovabb.setActionCommand("tovabbNewTeam");
-		vissza.setActionCommand("stage1"); //innen a csapatválasztóba kell visszalépni
+		vissza.setActionCommand("stage1"); // innen a csapatválasztóba kell visszalépni
 		bottomButtons();
 		top.validate();
 		center.validate();
 		bottom.validate();
 		frame.pack();
 	}
-	
-	
+
 	public void displayHandball() {
-		frame.removeOldComponents();				
+		frame.removeOldComponents();
 
 		top.add(new JLabel("Adja meg a csapat adatait!"));
 
 		center.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 		center.setLayout(new GridLayout(5, 2, 10, 10));
 
-	
-		
-
 		fantomPanel(2, center);
 		center.add(new JLabel("Évi támogatás mértéke: "));
 		center.add(annualSponsorship);
-		fantomPanel(2, center);
-		
+		displayName();
 
-		
 		setComponentsVisible();
 		tovabb.setActionCommand("tovabbNewTeam");
-		vissza.setActionCommand("stage1"); //innen a csapatválasztóba kell visszalépni
+		vissza.setActionCommand("stage1"); // innen a csapatválasztóba kell visszalépni
 		bottomButtons();
 		top.validate();
 		center.validate();
 		bottom.validate();
 		frame.pack();
 	}
+
 	
+	public void displayMembers() {
+		frame.removeOldComponents();
+
+		top.add(new JLabel("Válassza ki azokat a tagokat, akik benne vannak a csapatba!"));
+		
+		JTable table = new JTable(memberData);
+		table.setFillsViewportHeight(true);
+		JScrollPane scrollPane = new JScrollPane(table);
+		
+		
+		center.add(scrollPane, BorderLayout.CENTER);
+		
+		center.validate();
+	}
+	
+	//Miután megadtuk egy csapat adatait, lehetõség van tagokat felvenni. Az ehhez szükséges combo boxot és label-t jeleníti meg
+	public void displayFinalStageBottom(MemberData memberData) {
+		
+		
+		//A jcombobox egy Object tömböt vár
+		Object[] memberInfo = memberData.getAsArray();
+
+		members = new JComboBox<Object>(memberInfo);
+		bottom.add(members);
+		bottom.add(addMember);
+		tovabb.setText("Mentés");
+		tovabb.setActionCommand("saveTeam");
+		bottom.add(new JPanel()); //Hogy jobban szét lehessen választani
+		bottomButtons();
+		bottom.validate();
+	}
+	
+	
+	
+	
+	public JComboBox<Object> getMembers() {
+		return members;
+	}
+
+	public void setMembers(JComboBox<Object> members) {
+		this.members = members;
+	}
+
+	public JButton getAddMember() {
+		return addMember;
+	}
 	
 	public JButton getFoci() {
 		return foci;
@@ -203,6 +244,45 @@ public class NewTeamUI extends NewThingUI {
 	public void setLeaderName(JTextField leaderName) {
 		this.leaderName = leaderName;
 	}
+	
+	public boolean getFootball() {
+		return football;
+	}
+	
+	public boolean getBasketball() {
+		return basketball;
+	}
+	
+	public boolean getHandball() {
+		return handball;
+	}
+	
+	
+	
+	public void setFootball(boolean football) {
+		this.football = football;
+	}
+
+	public void setHandball(boolean handball) {
+		this.handball = handball;
+	}
+
+	public void setBasketball(boolean basketball) {
+		this.basketball = basketball;
+	}
+
+	public void setAllSportFalse() {
+		handball = false;
+		basketball = false;
+		football = false;
+	}
+
+	public JTextField getName() {
+		return name;
+	}
+
+	
+	
 	
 
 }

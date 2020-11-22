@@ -16,6 +16,10 @@ public class Member {
 		this.birthday = birthday;
 		ID = UUID.randomUUID();
 	}
+	
+	public String toString() {
+		return fullName + " (" + ID.toString().substring(0,6) + ")";
+	}
 
 	public Calendar getBirthday() {
 		return birthday;

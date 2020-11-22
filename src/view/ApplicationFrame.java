@@ -137,6 +137,7 @@ public class ApplicationFrame extends JFrame {
 		add(top, BorderLayout.NORTH);
 		add(center, BorderLayout.CENTER);
 		add(bottom, BorderLayout.SOUTH);
+		
 
 	}
 

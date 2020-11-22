@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 public abstract class NewThingUI {
 	protected JPanel top, bottom, center;
 	protected ApplicationFrame frame; //kompozíció
+	protected JButton tovabb, vissza;
 	
 	public JButton getTovabb() {
 		return tovabb;
@@ -26,9 +27,9 @@ public abstract class NewThingUI {
 		this.vissza = vissza;
 	}
 
-	protected JButton tovabb, vissza;
 	
-	protected void bottomButtons() {		
+	
+	protected void bottomButtons() {				
 		bottom.add(vissza);
 		bottom.add(tovabb);
 		vissza.setVisible(true);
