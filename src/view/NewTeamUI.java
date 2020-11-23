@@ -64,6 +64,8 @@ public class NewTeamUI extends NewThingUI {
 	// Új focicsapat felvételekor megjeleníti a szükséges elemeket
 	public void displayFootball() {
 		frame.removeOldComponents();
+		coach1.setText("");
+		coach2.setText("");
 
 		top.add(new JLabel("Adja meg a csapat adatait!"));
 
@@ -90,6 +92,7 @@ public class NewTeamUI extends NewThingUI {
 
 	private void displayName() {
 		center.add(new JLabel("Csapat neve: "));
+		name.setText("");
 		center.add(name);
 	}
 
@@ -110,6 +113,7 @@ public class NewTeamUI extends NewThingUI {
 
 		setComponentsVisible();
 		tovabb.setActionCommand("tovabbNewTeam");
+		tovabb.setText("Tovább");
 		vissza.setActionCommand("stage1"); // innen a csapatválasztóba kell visszalépni
 		bottomButtons();
 		top.validate();
@@ -133,6 +137,7 @@ public class NewTeamUI extends NewThingUI {
 
 		setComponentsVisible();
 		tovabb.setActionCommand("tovabbNewTeam");
+		tovabb.setText("Tovább");
 		vissza.setActionCommand("stage1"); // innen a csapatválasztóba kell visszalépni
 		bottomButtons();
 		top.validate();
@@ -166,10 +171,12 @@ public class NewTeamUI extends NewThingUI {
 
 		members = new JComboBox<Object>(memberInfo);
 		bottom.add(members);
+		addMember.setVisible(true);
 		bottom.add(addMember);
 		tovabb.setText("Mentés");
 		tovabb.setActionCommand("saveTeam");
 		bottom.add(new JPanel()); //Hogy jobban szét lehessen választani
+		
 		bottomButtons();
 		bottom.validate();
 	}
@@ -279,6 +286,11 @@ public class NewTeamUI extends NewThingUI {
 
 	public JTextField getName() {
 		return name;
+	}
+	
+	public JTextField getAnnualSponsorship() {
+		
+		return annualSponsorship;
 	}
 
 	

@@ -51,15 +51,23 @@ public class Controller {
 			newTeamUI.displayHandball();
 			newTeamUI.setHandball(true);
 		});
-		
+
+		// Mit csinál a tovább gomb
 		newTeamUI.getTovabb().addActionListener(e -> {
 			if (e.getActionCommand() == "tovabbNewTeam") {
 				listMemberUI.displayListMembersUI();
 				newTeamUI.displayFinalStageBottom(memberData);
 			} else if (e.getActionCommand() == "saveTeam") {
-				if(newTeamUI.getFootball()) {
-					teamData.addFootballTeam(newTeamUI.getName().getText(), members, newTeamUI.getCoach1().getText(), newTeamUI.getCoach2().getText());
+				if (newTeamUI.getFootball()) {
+					teamData.addFootballTeam(newTeamUI.getName().getText(), members, newTeamUI.getCoach1().getText(),
+							newTeamUI.getCoach2().getText());
+				} else if (newTeamUI.getBasketball()) {
+					teamData.addBasketballTeam(newTeamUI.getName().getText(), members, newTeamUI.getLeaderName().getText(), Integer.parseInt(newTeamUI.getGirlNumber().getText()));
+				}else if(newTeamUI.getHandball()) {
+					teamData.addHandballTeam(members, newTeamUI.getName().getText(), Double.parseDouble(newTeamUI.getAnnualSponsorship().getText()));
 				}
+				newTeamUI.setAllSportFalse();
+				members.clear();
 			}
 		});
 

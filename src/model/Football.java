@@ -20,7 +20,7 @@ public class Football extends Team{
 
 	@Override
 	public String getAdditioinalInformation() {
-		return "Name of coaches: " + coachNames[0] + ", " + coachNames[1];
+		return "Edzõk nevei:  " + coachNames[0] + ", " + coachNames[1];
 	}
 	
 	public String toString() {
