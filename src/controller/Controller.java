@@ -29,7 +29,7 @@ public class Controller {
 		this.listMemberUI = new ListMembersUI(AFrame, memberData);
 		this.newMemberUI = new NewMemberUI(AFrame);
 		initController();
-		members = new ArrayList<Member>();
+		
 	}
 
 	public void initController() {
@@ -56,21 +56,23 @@ public class Controller {
 		newTeamUI.getTovabb().addActionListener(e -> {
 			if (e.getActionCommand() == "tovabbNewTeam") {
 				listMemberUI.displayListMembersUI();
+				members = new ArrayList<Member>();
 				newTeamUI.displayFinalStageBottom(memberData);
 			} else if (e.getActionCommand() == "saveTeam") {
 				if (newTeamUI.getFootball()) {
-					teamData.addFootballTeam(newTeamUI.getName().getText(), members, newTeamUI.getCoach1().getText(),
-							newTeamUI.getCoach2().getText());
+					teamData.addFootballTeam(newTeamUI.getName().getText(), members, newTeamUI.getCoach1().getText(), newTeamUI.getCoach2().getText());
 				} else if (newTeamUI.getBasketball()) {
 					teamData.addBasketballTeam(newTeamUI.getName().getText(), members, newTeamUI.getLeaderName().getText(), Integer.parseInt(newTeamUI.getGirlNumber().getText()));
 				}else if(newTeamUI.getHandball()) {
 					teamData.addHandballTeam(members, newTeamUI.getName().getText(), Double.parseDouble(newTeamUI.getAnnualSponsorship().getText()));
 				}
 				newTeamUI.setAllSportFalse();
-				members.clear();
+				
+				
 			}
 		});
 
+		//Amikor csapathoz adunk tagot gomb
 		newTeamUI.getAddMember().addActionListener(e -> {
 			members.add((Member) newTeamUI.getMembers().getSelectedItem());
 		});
@@ -81,16 +83,17 @@ public class Controller {
 				newTeamUI.setAllSportFalse();
 			}
 		});
+		
+		//Új tag felvétele gomb
 		newMemberUI.getTovabb().addActionListener(e -> {
-
 			Calendar birthday = Calendar.getInstance();
-			birthday.set(newMemberUI.getSelectedYear(), newMemberUI.getSelectedMonth() - 1,
-					newMemberUI.getSelectedDay(), 0, 0);
+			birthday.set(newMemberUI.getSelectedYear(), newMemberUI.getSelectedMonth() - 1, newMemberUI.getSelectedDay(), 0, 0);
 			memberData.addMember(newMemberUI.getFullName().getText(), newMemberUI.getSex(), birthday);
-			memberData.printData();
+		
 		});
 
 		Calendar birthday = Calendar.getInstance();
+		/*memberData.addMember("Teszt Elek", "Férfi", birthday);
 		memberData.addMember("Teszt Elek", "Férfi", birthday);
 		memberData.addMember("Teszt Elek", "Férfi", birthday);
 		memberData.addMember("Teszt Elek", "Férfi", birthday);
@@ -105,8 +108,16 @@ public class Controller {
 		memberData.addMember("Teszt Elek", "Férfi", birthday);
 		memberData.addMember("Teszt Elek", "Férfi", birthday);
 		memberData.addMember("Teszt Elek", "Férfi", birthday);
-		memberData.addMember("Teszt Elek", "Férfi", birthday);
-		memberData.addMember("Teszt Elek", "Férfi", birthday);
+		memberData.addMember("Teszt Elek", "Férfi", birthday);*/
+		
+		
+		
+		/*ArrayList<Member> tesztEmberek =  new ArrayList<Member>();
+		tesztEmberek.add(new Member("Teszt Elek", "Férfi", birthday));
+		tesztEmberek.add(new Member("Teszt Elek", "Férfi", birthday));
+		tesztEmberek.add(new Member("Teszt Elek", "Férfi", birthday));
+		
+		teamData.addFootballTeam("TesztTeam", tesztEmberek, "Kis Pál", "Zénó Bácsi");*/
 	}
 
 }

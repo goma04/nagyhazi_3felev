@@ -72,7 +72,7 @@ public class ApplicationFrame extends JFrame {
 
 		top.add(welcomeText);
 		
-
+		
 		System.out.println("AplicationFrameCtor");
 		initMenu();
 	}

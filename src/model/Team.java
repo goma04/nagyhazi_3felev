@@ -1,6 +1,10 @@
 package model;
 
 import java.util.UUID;
+
+import org.w3c.dom.*;
+
+import java.awt.AWTEvent;
 import java.util.ArrayList;
 
 public abstract class Team {
@@ -12,8 +16,15 @@ public abstract class Team {
 	Team(ArrayList<Member> members, String name){
 		this.memberNo = members.size();
 		this.name = name;
-		ID = UUID.randomUUID();
+		this.ID = UUID.randomUUID();
 		this.members = members;
+	}
+	
+	Team(){
+		this.memberNo = 0;
+		this.name = null;
+		this.ID = null;
+		this.members = null;
 	}
 	
 	public void printTeam() {
@@ -47,8 +58,40 @@ public abstract class Team {
 	}
 	
 	
+	
+	public void setMembers(ArrayList<Member> members) {
+		this.members = members;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	protected void saveMembers(Element element, Document doc) {
+		
+		for (int i=0; i<members.size(); i++) {
+			Element member = doc.createElement("member");
+			member.appendChild(doc.createTextNode(members.get(i).getID().toString()));
+			element.appendChild(member);
+			
+			//System.out.println("Azonosító a tagnak: " + members.get(i).getID().toString());
+		}
+		
+		
+		
+	}
+	
+	
+	//A root elemhez írja hozzá az adatokat
+	public abstract void writeToFile(Element teamElement, Document doc);
+	
+	
 
 	public abstract String getAdditioinalInformation();
+
+	public Member getMember(int i) {
+		return members.get(i);
+	}
 	
 	
 	

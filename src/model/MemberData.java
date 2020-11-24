@@ -9,7 +9,21 @@ import javax.swing.table.AbstractTableModel;
 
 //Az AbstractTableModel osztály alapértelmezett implementációt ad a TableModel interface-nek, ezért örököl tõle
 public class MemberData extends AbstractTableModel {
-	private List<Member> members = new ArrayList<Member>();
+	private ArrayList<Member> members;
+	
+	public MemberData(ArrayList<Member> memberList) {
+		members = memberList;
+	}
+
+	public Member getMemberById(String ID) {
+		for (Member member : members) {
+			if(member.getID().toString().equals(ID)) {
+				return member;
+			}
+		}
+		
+		return null; //MemberNotFoundException?
+	}
 
 	public void addMember(String name, String sex, Calendar birthday) {
 		members.add(new Member(name, sex, birthday));
@@ -80,6 +94,10 @@ public class MemberData extends AbstractTableModel {
 	//Amikor jcombo box-ban kell megjeleníteni a tagokat, egy tömbben kell átadni
 	public Object[] getAsArray() {
 		return members.toArray();
+	}
+	
+	public Member getMember(int index) {
+		return members.get(index);
 	}
 
 }

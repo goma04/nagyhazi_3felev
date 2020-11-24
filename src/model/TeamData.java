@@ -9,7 +9,13 @@ import javax.swing.table.AbstractTableModel;
 public class TeamData extends AbstractTableModel {
 
 	// Ez a tagváltozó tárolja a csapatok adatait (heterogén kollekció)
-	List<Team> teams = new ArrayList<Team>();
+	ArrayList<Team> teams;
+	
+	public TeamData(ArrayList<Team> teamList) {
+		teams = teamList;
+	}
+	
+	
 
 	public void addFootballTeam(String name, ArrayList<Member> members, String coach1, String coach2) {
 		teams.add(new Football(coach1, coach2, name, members));
@@ -25,7 +31,7 @@ public class TeamData extends AbstractTableModel {
 
 	public void printTeams() {
 		for (Team team : teams) {
-			System.out.println(team.toString());
+			System.out.println("ID: " + team.getID() + "\nNév: " + team.getName());
 		}
 	}
 
@@ -69,5 +75,9 @@ public class TeamData extends AbstractTableModel {
 			return tempTeam.getAdditioinalInformation();
 		}
 		return "undefinded";
+	}
+	
+	public Team getTeam(int index) {
+		return teams.get(index);
 	}
 }
