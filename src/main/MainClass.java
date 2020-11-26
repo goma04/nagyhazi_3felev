@@ -22,11 +22,9 @@ public class MainClass {
 		MemberData memberData = dataController.loadMemberData();
 		TeamData teamData = dataController.loadTeamData();
 		
-		teamData.printTeams();
-		
 		dataController.addWindowsListenerToData(teamData, memberData);
 		
-		Controller controller = new Controller(memberData,teamData, frame);
+		new Controller(memberData,teamData, frame);
 		
 		
 

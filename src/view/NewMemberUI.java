@@ -68,9 +68,11 @@ public class NewMemberUI extends NewThingUI {
 		center.setLayout(new GridLayout(3, 2, 20, 20));
 
 		center.add(new JLabel("Teljes név: "));
+		fullName.setText("");
 		center.add(fullName);
 
 		center.add(new JLabel("Nem: "));
+		
 		center.add(sexOption);
 
 		JPanel dateChangePanel = new JPanel(new FlowLayout());
@@ -152,5 +154,7 @@ public class NewMemberUI extends NewThingUI {
 	public String getSex() {
 		return (String) (sexOption.getSelectedItem());
 	}
+
+	
 
 }

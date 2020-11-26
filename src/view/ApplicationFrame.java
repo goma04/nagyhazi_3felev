@@ -20,33 +20,34 @@ public class ApplicationFrame extends JFrame {
 		JMenuBar menubar = new JMenuBar();
 		csapatKezeles = new JMenu("Csapatok Kezelése");
 		tagKezeles = new JMenu("Tagok Kezelése");
-		sugo = new JMenu("Súgó");
-		// MenuActionListener menuBtnListener = new MenuActionListener();
 
-		menupont = new JMenuItem[4];
-		menupont[0] = new JMenuItem("Csapat felvétele");
-		menupont[1] = new JMenuItem("Csapatok kilistázása");
-		menupont[2] = new JMenuItem("Tag felvétele");
-		menupont[3] = new JMenuItem("Tagok listázása");
+		menupont = new JMenuItem[7];
+		JMenu submenuTeams = new JMenu("Csapat adatok");
+		menupont[0] = new JMenuItem("Csapat felvétele");		
+		menupont[1] = new JMenuItem("Általános információ");	
+		menupont[2] = new JMenuItem("Csapat törlése");
+		menupont[3] = new JMenuItem("Tag felvétele");
+		menupont[4] = new JMenuItem("Tagok listázása");
+		menupont[5] = new JMenuItem("Tagokhoz tartozó csapatok");
+		menupont[6] = new JMenuItem("Csapat tagjainak módosítása");
 
-		for (int i = 0; i < menupont.length; i++) {
-			// menupont[i].addActionListener(menuBtnListener); // ActionListener az összes
-			// menüpontra
-		}
-
-		// menupont[0].addActionListener(e->System.out.println("listener triggered"));
+		
 
 		csapatKezeles.add(menupont[0]);
-		csapatKezeles.add(menupont[1]);
-		tagKezeles.add(menupont[2]);
+		csapatKezeles.add(menupont[2]);
+		csapatKezeles.add(submenuTeams);		
+		submenuTeams.add(menupont[1]);
+		submenuTeams.add(menupont[6]);
+		
+		
 		tagKezeles.add(menupont[3]);
+		tagKezeles.add(menupont[4]);
+		tagKezeles.add(menupont[5]);
 
 		menubar.add(csapatKezeles);
 		menubar.add(tagKezeles);
 
-		menubar.add(Box.createHorizontalGlue()); // A súgó menüpont miatt kell, hogy jobb oldalra kerüljön
-
-		menubar.add(sugo);
+		
 		setJMenuBar(menubar); // Beállítja a frame menübárját.
 
 	}
@@ -54,7 +55,7 @@ public class ApplicationFrame extends JFrame {
 	public ApplicationFrame() {
 		super("GoSport - Sportegyesület Nyilvántartó");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setMinimumSize(new Dimension(800, 400));
+		setMinimumSize(new Dimension(1280, 550));
 		setLayout(new BorderLayout());
 
 		top = new JPanel();
@@ -65,12 +66,16 @@ public class ApplicationFrame extends JFrame {
 		add(center, BorderLayout.CENTER);
 		add(bottom, BorderLayout.SOUTH);
 
-		JLabel welcomeText = new JLabel("Üdvözünk a GoSport nyilvántartóban!");
+		JLabel welcomeText = new JLabel("Üdvözlünk a GoSport nyilvántartóban!");
 		Font welcomeFont = new Font("serif", Font.PLAIN, 40);
 		welcomeText.setForeground(Color.orange);
 		welcomeText.setFont(welcomeFont);
 
 		top.add(welcomeText);
+		
+		JLabel paragraph1 = new JLabel("A program segítségével lehetséges kézi, kosár és focicsapatok, valamint tagok adatait kezelni. ");
+		center.add(paragraph1);
+		
 		
 		
 		System.out.println("AplicationFrameCtor");

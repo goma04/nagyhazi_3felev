@@ -23,7 +23,7 @@ public class TeamHandler extends DefaultHandler {
 	private Football footballTeam;
 	private Handball handballTeam;
 	private Basketball basketballTeam;
-	private String memberId;
+	private String memberId, teamId;
 	private boolean nameTag, idTag, memberNumberTag, coach1Tag, coach2Tag, supportTag, girlsNoTag, leaderNameTag,
 			isFootball, isHandball, isBasketball, memberTag;
 	private int memberNumberTemp;
@@ -79,7 +79,7 @@ public class TeamHandler extends DefaultHandler {
 		} else if (qName.equalsIgnoreCase("member")) {
 			memberTag = true;
 
-			/*if (counter == 0) {
+			if (counter == 0) {
 				members = new ArrayList<Member>();
 				counter++;
 			} else if (counter == memberNumberTemp - 1) {
@@ -88,7 +88,7 @@ public class TeamHandler extends DefaultHandler {
 				
 			} else {				
 				
-			}*/
+			}
 		} else if(qName.equalsIgnoreCase("ID")) {
 			idTag = true;
 		}
@@ -98,7 +98,7 @@ public class TeamHandler extends DefaultHandler {
 	@Override
 	public void characters(char ch[], int start, int length) throws SAXException {
 
-		System.out.println(new String(ch, start, length));
+		
 		
 		if (nameTag) {
 			if (isFootball) {
@@ -111,7 +111,7 @@ public class TeamHandler extends DefaultHandler {
 			nameTag = false;
 			
 		} else if (idTag) {
-			memberId = new String(ch, start, length);
+			teamId = new String(ch, start, length);
 			if (isFootball) {
 				footballTeam.setID(UUID.fromString(new String(ch, start, length)));
 			} else if (isBasketball) {
@@ -152,7 +152,9 @@ public class TeamHandler extends DefaultHandler {
 			footballTeam.setCoach2(new String(ch, start, length));
 			coach2Tag = false;
 		}else if(memberTag) {
-			members.add(memberData.getMemberById(memberId));
+			members.add(memberData.getMemberById(new String(ch, start, length)));
+			
+			memberTag = false;
 		}
 	}
 
@@ -160,15 +162,24 @@ public class TeamHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if (qName.equalsIgnoreCase("basketball")) {
 			basketballTeam.setMembers(members);
+			basketballTeam.setMembers(members);
 			list.add(basketballTeam);
+
+			members = new ArrayList<Member>();
 		} else if (qName.equalsIgnoreCase("football")) {
 			footballTeam.setMembers(members);
+			footballTeam.setMembers(members);
 			list.add(footballTeam);
+			
+			members = new ArrayList<Member>();
 		} else if (qName.equalsIgnoreCase("handball")) {
 			handballTeam.setMembers(members);
+			handballTeam.setMembers(members);
 			list.add(handballTeam);
+			
+			members = new ArrayList<Member>();
 		}
-		members = new ArrayList<Member>();
+		
 	}
 
 	public ArrayList<Team> getTeams() {

@@ -37,16 +37,7 @@ public class Football extends Team {
 		return "Edzõk nevei:  " + coachNames[0] + ", " + coachNames[1];
 	}
 
-	public String toString() {
-		String result = "name: " + name + "\ncoach1: " + coachNames[0] + "\ncoach2: " + coachNames[1] + "\nid:"
-				+ ID.toString() + "\nmembers:\n ";
-
-		for (int i = 0; i < members.size(); i++) {
-			result += members.get(i).toString() + "\n";
-		}
-
-		return result;
-	}
+	
 
 	@Override
 	public void writeToFile(Element teamElement, Document doc) {

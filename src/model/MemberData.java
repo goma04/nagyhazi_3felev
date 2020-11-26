@@ -14,16 +14,24 @@ public class MemberData extends AbstractTableModel {
 	public MemberData(ArrayList<Member> memberList) {
 		members = memberList;
 	}
+	
+	public ArrayList<Member> getMembers(){
+		return members;
+	}
 
 	public Member getMemberById(String ID) {
+		System.out.println("A KEresett ID: " + ID);
 		for (Member member : members) {
+			System.out.println("ID:: " +member.getID());
 			if(member.getID().toString().equals(ID)) {
+				
 				return member;
 			}
 		}
 		
 		return null; //MemberNotFoundException?
 	}
+	
 
 	public void addMember(String name, String sex, Calendar birthday) {
 		members.add(new Member(name, sex, birthday));

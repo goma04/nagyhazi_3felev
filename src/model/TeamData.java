@@ -16,6 +16,9 @@ public class TeamData extends AbstractTableModel {
 	}
 	
 	
+	public void deleteTeam(Object object) {
+		teams.remove(object);
+	}
 
 	public void addFootballTeam(String name, ArrayList<Member> members, String coach1, String coach2) {
 		teams.add(new Football(coach1, coach2, name, members));
@@ -33,6 +36,10 @@ public class TeamData extends AbstractTableModel {
 		for (Team team : teams) {
 			System.out.println("ID: " + team.getID() + "\nNév: " + team.getName());
 		}
+	}
+	
+	public int getNumberOfTeams() {
+		return teams.size();
 	}
 
 	@Override
@@ -80,4 +87,9 @@ public class TeamData extends AbstractTableModel {
 	public Team getTeam(int index) {
 		return teams.get(index);
 	}
+	
+	//Amikor jcombo box-ban kell megjeleníteni a tagokat, egy tömbben kell átadni
+		public Object[] getAsArray() {
+			return teams.toArray();
+		}
 }

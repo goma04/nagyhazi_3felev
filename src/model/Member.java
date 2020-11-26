@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -13,6 +14,7 @@ public class Member {
 	String fullName;
 	String sex;
 	UUID ID;
+	private ArrayList<Team> teams; //Azon csapatok vannak benne, aminek tagja
 	
 	public Member(String name, String sex, Calendar birthday){
 		this.fullName = name;
@@ -28,6 +30,30 @@ public class Member {
 		ID = null;
 	}
 	
+	
+	public ArrayList<Team> getTeamsMemberIn(TeamData teamData){
+		
+		teams = new ArrayList<Team>();
+		
+		System.out.println("\n\nKeresett Id: " + this.ID);
+		for (int i =0; i<teamData.getNumberOfTeams(); i++) {
+			ArrayList<Member> membersOfTeam = teamData.getTeam(i).getMembers();
+			
+			for (Member member : membersOfTeam) {
+				if(member.getID().toString().equals(this.ID.toString())) {
+					teams.add(teamData.getTeam(i)); //Ha megtaláltuk benne a tag id-t, akkor abban a csapatban szerepel a tag.
+					break;
+				}					
+			}
+		}
+		
+		System.out.println(fullName + " ezekben a csapatokban van benne: ");
+		for (Team team : teams) {
+			System.out.println(team.getName());
+		}
+		
+		return teams;
+	}
 	
 	
 	//XML fájlba menti az adott tagot. A kapott memberElement-re fûzi rá az adatokat.

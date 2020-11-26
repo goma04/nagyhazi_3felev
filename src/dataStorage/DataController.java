@@ -72,13 +72,10 @@ public class DataController {
 			rootElement.appendChild(team);
 
 			data.getTeam(i).writeToFile(team, doc);
-			//System.out.println("tagszám: " + data.getTeam(i).getMemberNo());
-			//System.out.println("elsõ tag id: " + data.getTeam(i).getMember(0).getID().toString());
-			System.out.println("\n\nCsapatban szereplõ tagok id-je: ");
 			
 			for (Member member : data.getTeam(i).getMembers()) {
 				System.out.println(i + "  " + member.getID().toString());
-			}			
+			}		
 			
 		}
 
@@ -142,7 +139,8 @@ public class DataController {
 
 		teamData = new TeamData(handler.getTeams());
 
-		System.out.println("Beolvasott csapat db: " + teamData.getRowCount());
+		
+		
 		
 
 		return teamData;
@@ -160,7 +158,7 @@ public class DataController {
 
 		memberData = new MemberData(handler.getMembers());
 
-		System.out.println("Beolvasott member db: " + memberData.getRowCount());
+		
 		
 
 		return memberData;

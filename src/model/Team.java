@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import org.w3c.dom.*;
 
+import exception.ElementAlreadyInList;
+
 import java.awt.AWTEvent;
 import java.util.ArrayList;
 
@@ -27,6 +29,10 @@ public abstract class Team {
 		this.members = null;
 	}
 	
+	public String toString() {
+		return name + " (" + ID.toString().substring(0,6) + ")";
+	}
+	
 	public void printTeam() {
 		System.out.println("letszam: " + memberNo +"  id: " + ID.toString().substring(0,8));
 	}
@@ -45,6 +51,19 @@ public abstract class Team {
 
 	public ArrayList<Member> getMembers() {
 		return members;
+	}
+	
+	public void removeMember(Member member) {
+		members.remove(member);
+		memberNo--;
+	}
+	
+	public void addMember(Member member) throws ElementAlreadyInList{
+		if(members.contains(member))
+			throw new ElementAlreadyInList("This member is already in the ArrayList");
+		
+		members.add(member);
+		memberNo++;
 	}
 
 	
