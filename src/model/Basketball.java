@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.w3c.dom.*;
 
+import exception.ExpectedIntPassedString;
+
 public class Basketball extends Team{
 	private int girlsNo;
 	private String leaderName;
@@ -12,6 +14,9 @@ public class Basketball extends Team{
 	Basketball(ArrayList<Member> members, String name, int girlsNo, String leaderName) {
 		super(members, name);
 		this.girlsNo = girlsNo;
+		
+		
+		
 		this.leaderName = leaderName;
 	}
 	

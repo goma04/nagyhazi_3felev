@@ -78,9 +78,9 @@ public class NewMemberUI extends NewThingUI {
 		dateChangePanel.add(choseDay);
 		dateChangePanel.add(choseMonth);
 		dateChangePanel.add(choseYear);
-
-		tovabb.setText("Mentés");
 		
+
+		tovabb.setText("Mentés");	
 		
 		setComponentsVisible();
 		bottomButtons();

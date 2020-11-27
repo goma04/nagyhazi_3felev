@@ -3,22 +3,15 @@ package view;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import model.TeamData;
 
-public class DeleteTeamUI {
-
-	private JPanel top, bottom;
+public class DeleteTeamUI extends UI{
 	private JButton deleteBtn;
-	private ApplicationFrame frame;
 	private TeamData teamData;
 	private JComboBox<Object> teams;
 
 	public DeleteTeamUI(ApplicationFrame frame, TeamData teamData) {
-		this.frame = frame;
-		this.top = frame.getTop();
-		
-		this.bottom = frame.getBottom();
+		super(frame);
 		this.teamData = teamData;
 		deleteBtn = new JButton("Csapat törlése");
 	}

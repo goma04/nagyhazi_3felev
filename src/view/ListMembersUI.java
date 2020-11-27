@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -13,9 +12,7 @@ import model.Member;
 import model.MemberData;
 import model.TeamData;
 
-public class ListMembersUI {
-	private JPanel top, center, bottom;
-	private ApplicationFrame frame;
+public class ListMembersUI extends UI{
 	private MemberData memberData;
 	private JComboBox<Object> members;
 	private JButton ok, back;
@@ -23,10 +20,7 @@ public class ListMembersUI {
 	private TeamData teamData;
 
 	public ListMembersUI(ApplicationFrame frame, MemberData memberData, TeamData teamData) {
-		this.frame = frame;
-		this.top = frame.getTop();
-		this.center = frame.getCenter();
-		this.center = frame.getCenter();
+		super(frame);
 		this.memberData = memberData;
 		this.ok = new JButton("Ok");
 		this.back = new JButton("Vissza");

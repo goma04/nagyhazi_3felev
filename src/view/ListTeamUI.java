@@ -3,7 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,9 +12,9 @@ import model.MemberData;
 import model.Team;
 import model.TeamData;
 
-public class ListTeamUI {
-	private JPanel top, bottom, center;
-	private  ApplicationFrame frame;
+public class ListTeamUI extends UI{
+	
+	
 	private TeamData teamData;
 	private JComboBox<Object> teams, members, membersOfTeamComboBox;
 	private JButton ok, back, delete, add;
@@ -23,10 +22,7 @@ public class ListTeamUI {
 	private Member selectedMemberAdd, selectedMemberDelete;
 
 	public ListTeamUI(ApplicationFrame frame, TeamData teamData, MemberData memberData) {
-		this.frame = frame;
-		this.top = frame.getTop();
-		this.center = frame.getCenter();
-		this.bottom = frame.getBottom();
+		super(frame);		
 		this.teamData = teamData;
 		this.ok = new JButton("Ok");
 		this.back = new JButton("Vissza");

@@ -6,7 +6,6 @@ import javax.swing.*;
 import model.MemberData;
 
 
-
 public class NewTeamUI extends NewThingUI {
 	private JButton foci, kosar, kezi, addMember;
 	private JTextField coach1, coach2, girlNumber, leaderName, annualSponsorship, name;
@@ -135,9 +134,6 @@ public class NewTeamUI extends NewThingUI {
 		bottom.validate();
 		frame.pack();
 	}
-
-	
-	
 	
 	//Miután megadtuk egy csapat adatait, lehetõség van tagokat felvenni. Az ehhez szükséges combo boxot és label-t jeleníti meg
 	public void displayFinalStageBottom(MemberData memberData) {
@@ -153,21 +149,18 @@ public class NewTeamUI extends NewThingUI {
 		tovabb.setText("Mentés");
 		tovabb.setActionCommand("saveTeam");
 		bottom.add(new JPanel()); //Hogy jobban szét lehessen választani
+		vissza.setActionCommand("stage2");
 		
 		bottomButtons();
 		bottom.validate();
 	}
 	
 	
-	
-	
 	public JComboBox<Object> getMembers() {
 		return members;
 	}
 
-	public void setMembers(JComboBox<Object> members) {
-		this.members = members;
-	}
+	
 
 	public JButton getAddMember() {
 		return addMember;
@@ -177,56 +170,28 @@ public class NewTeamUI extends NewThingUI {
 		return foci;
 	}
 
-	public void setFoci(JButton foci) {
-		this.foci = foci;
-	}
-
 	public JButton getKosar() {
 		return kosar;
-	}
-
-	public void setKosar(JButton kosar) {
-		this.kosar = kosar;
 	}
 
 	public JButton getKezi() {
 		return kezi;
 	}
 
-	public void setKezi(JButton kezi) {
-		this.kezi = kezi;
-	}
-
 	public JTextField getCoach1() {
 		return coach1;
-	}
-
-	public void setCoach1(JTextField coach1) {
-		this.coach1 = coach1;
 	}
 
 	public JTextField getCoach2() {
 		return coach2;
 	}
 
-	public void setCoach2(JTextField coach2) {
-		this.coach2 = coach2;
-	}
-
 	public JTextField getGirlNumber() {
 		return girlNumber;
 	}
 
-	public void setGirlNumber(JTextField girlNumber) {
-		this.girlNumber = girlNumber;
-	}
-
 	public JTextField getLeaderName() {
 		return leaderName;
-	}
-
-	public void setLeaderName(JTextField leaderName) {
-		this.leaderName = leaderName;
 	}
 	
 	public boolean getFootball() {
@@ -240,8 +205,6 @@ public class NewTeamUI extends NewThingUI {
 	public boolean getHandball() {
 		return handball;
 	}
-	
-	
 	
 	public void setFootball(boolean football) {
 		this.football = football;

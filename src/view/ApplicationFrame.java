@@ -25,14 +25,11 @@ public class ApplicationFrame extends JFrame {
 		menupont[5] = new JMenuItem("Tagokhoz tartozó csapatok");
 		menupont[6] = new JMenuItem("Csapat tagjainak kezelése");
 
-		
-
 		csapatKezeles.add(menupont[0]);
 		csapatKezeles.add(menupont[2]);
 		csapatKezeles.add(submenuTeams);		
 		submenuTeams.add(menupont[1]);
-		submenuTeams.add(menupont[6]);
-		
+		submenuTeams.add(menupont[6]);		
 		
 		tagKezeles.add(menupont[3]);
 		tagKezeles.add(menupont[4]);
@@ -40,10 +37,7 @@ public class ApplicationFrame extends JFrame {
 
 		menubar.add(csapatKezeles);
 		menubar.add(tagKezeles);
-
-		
 		setJMenuBar(menubar); // Beállítja a frame menübárját.
-
 	}
 
 	public ApplicationFrame() {
@@ -70,9 +64,6 @@ public class ApplicationFrame extends JFrame {
 		JLabel paragraph1 = new JLabel("A program segítségével lehetséges kézi, kosár és focicsapatok, valamint tagok adatait kezelni. ");
 		center.add(paragraph1);
 		
-		
-		
-		System.out.println("AplicationFrameCtor");
 		initMenu();
 	}
 
@@ -82,34 +73,21 @@ public class ApplicationFrame extends JFrame {
 
 	public JPanel getTop() {
 		return top;
-	}
-
-	public void setTop(JPanel top) {
-		this.top = top;
-	}
+	}	
 
 	public JPanel getCenter() {
 		return center;
-	}
-
-	public void setCenter(JPanel center) {
-		this.center = center;
-	}
+	}	
 
 	public JPanel getBottom() {
 		return bottom;
-	}
-
-	public void setBottom(JPanel bottom) {
-		this.bottom = bottom;
-	}
+	}	
 
 	//Visszaállítja a layoutot a kezdeti, üres állapotba
 	void removeOldComponents() {
 		Component[] componentsTop = top.getComponents();
 		Component[] componentsCenter = center.getComponents();
 		Component[] componentsBottom = bottom.getComponents();
-		
 		
 		getContentPane().removeAll();
 		repaint();
@@ -129,50 +107,11 @@ public class ApplicationFrame extends JFrame {
 		top.removeAll();
 		center.removeAll();
 		bottom.removeAll();
-		center.setLayout(new BorderLayout());
-		
+		center.setLayout(new BorderLayout());		
 		
 		setLayout(new BorderLayout());
 		add(top, BorderLayout.NORTH);
 		add(center, BorderLayout.CENTER);
 		add(bottom, BorderLayout.SOUTH);
-		
-
 	}
-
-	/*
-	 * private void displaySugo() { JLabel sugoText = new JLabel("teszt");
-	 * center.add(sugoText); }
-	 */
-
-	/*
-	 * public class MenuActionListener implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent actionEvent) { Component[]
-	 * componentsTop = top.getComponents(); Component[] componentsCenter =
-	 * center.getComponents();
-	 * 
-	 * for (int i = 0; i < componentsCenter.length; i++) {
-	 * componentsCenter[i].setVisible(false); }
-	 * 
-	 * for (int i = 0; i < componentsTop.length; i++) {
-	 * componentsTop[i].setVisible(false); }
-	 * 
-	 * top.removeAll(); center.removeAll();
-	 * 
-	 * System.out.println(actionEvent.getActionCommand());
-	 * 
-	 * // Megnézzük, hogy melyik gombot nyomták meg switch
-	 * (actionEvent.getActionCommand()) { case "Csapatok kilistázása":
-	 * listTeam.displayListTeam(); break; case "Csapat felvétele":
-	 * newTeam.displayChooseSport(); break;
-	 * 
-	 * case "Tag felvétele": newMember.displayNewMemberUI(); break; case
-	 * "Tagok listázása": listMembers.displayListMembersUI(); break; case
-	 * "Labdarugás": newTeam.displayFootball(); break; case "Kosárlabda":
-	 * newTeam.displayBasketball(); break; case "tovabbNewMember": break; case
-	 * "tovabbNewTeam": break; case "stage1": newTeam.displayChooseSport(); break;
-	 * case "Súgó": System.out.println("most"); displaySugo(); break; } } }
-	 */
-
 }
