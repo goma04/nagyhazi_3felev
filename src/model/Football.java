@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import org.w3c.dom.*;
 
 public class Football extends Team {
-	String[] coachNames;
+	private String[] coachNames;
 
-	public Football(String coach1, String coach2, String name, ArrayList<Member> members) {
+	Football(String coach1, String coach2, String name, ArrayList<Member> members) {
 		super(members, name);
 		coachNames = new String[2];
 		coachNames[0] = coach1;
@@ -34,7 +34,7 @@ public class Football extends Team {
 
 	@Override
 	public String getAdditioinalInformation() {
-		return "Edzõk nevei:  " + coachNames[0] + ", " + coachNames[1];
+		return "Football csapat. Edzõk nevei:  " + coachNames[0] + ", " + coachNames[1];
 	}
 
 	

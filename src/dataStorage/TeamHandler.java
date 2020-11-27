@@ -1,22 +1,22 @@
 package dataStorage;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import javax.swing.JOptionPane;
 import java.util.UUID;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import exception.MemberNotFound;
 import model.Basketball;
 import model.Football;
 import model.Handball;
 import model.Member;
 import model.MemberData;
 import model.Team;
-import model.TeamData;
+import view.PopUpMessage;
 
-public class TeamHandler extends DefaultHandler {
+class TeamHandler extends DefaultHandler {
 	private ArrayList<Team> list; // Ez lesz a visszatérési érték, ahol átadom a csapatokat
 	private ArrayList<Member> members; // Itt tárolódnak a csapatokhoz tartozó tagok
 	private MemberData memberData;
@@ -83,12 +83,8 @@ public class TeamHandler extends DefaultHandler {
 				members = new ArrayList<Member>();
 				counter++;
 			} else if (counter == memberNumberTemp - 1) {
-				counter = 0;
-				
-				
-			} else {				
-				
-			}
+				counter = 0;				
+			} 
 		} else if(qName.equalsIgnoreCase("ID")) {
 			idTag = true;
 		}
@@ -97,9 +93,6 @@ public class TeamHandler extends DefaultHandler {
 	// Amikor odaér a tag által tárolt szövegjez, fel kell dolgozni
 	@Override
 	public void characters(char ch[], int start, int length) throws SAXException {
-
-		
-		
 		if (nameTag) {
 			if (isFootball) {
 				footballTeam.setName(new String(ch, start, length));
@@ -137,7 +130,7 @@ public class TeamHandler extends DefaultHandler {
 			memberNumberTag = false;
 			
 		} else if (supportTag) {
-			handballTeam.setAnnualSponsorship(Double.parseDouble(new String(ch, start, length)));
+			handballTeam.setAnnualSponsorship(Integer.parseInt(new String(ch, start, length)));
 			supportTag = false;
 		}else if(girlsNoTag) {
 			basketballTeam.setGirlsNo(Integer.parseInt(new String(ch, start, length)));
@@ -152,7 +145,11 @@ public class TeamHandler extends DefaultHandler {
 			footballTeam.setCoach2(new String(ch, start, length));
 			coach2Tag = false;
 		}else if(memberTag) {
-			members.add(memberData.getMemberById(new String(ch, start, length)));
+			try {
+				members.add(memberData.getMemberById(new String(ch, start, length)));
+			} catch (MemberNotFound e) {
+				new PopUpMessage("Hiba a tagok beolvasása során! \""+new String(ch, start, length)+"\" azonosítójú tag nem található", JOptionPane.ERROR_MESSAGE);
+			}
 			
 			memberTag = false;
 		}

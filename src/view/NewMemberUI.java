@@ -2,11 +2,8 @@ package view;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,7 +11,7 @@ import javax.swing.JTextField;
 public class NewMemberUI extends NewThingUI {
 	private JTextField fullName;
 	private String[] sex;
-	private JComboBox sexOption;
+	private JComboBox<String> sexOption;
 	private JComboBox<Integer> choseDay;
 	private JComboBox<String> choseMonth;
 	private JComboBox<Integer> choseYear;
@@ -26,7 +23,7 @@ public class NewMemberUI extends NewThingUI {
 		sex = new String[2];
 		sex[0] = "Férfi";
 		sex[1] = "Nõ";
-		sexOption = new JComboBox(sex);
+		sexOption = new JComboBox<String>(sex);
 
 		// A dátum kiválasztásához 3 combo box-t használok fel, amik egymás mellett
 		// helyezkednek el, tehát ebbe a cellába egy új layoutot kell felvenni

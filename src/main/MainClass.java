@@ -1,10 +1,8 @@
 package main;
-import java.util.ArrayList;
 
-import controller.Controller;
-import model.Member;
+import controller.MemberController;
+import controller.TeamController;
 import model.MemberData;
-import model.Team;
 import model.TeamData;
 import view.*;
 
@@ -24,17 +22,8 @@ public class MainClass {
 		
 		dataController.addWindowsListenerToData(teamData, memberData);
 		
-		new Controller(memberData,teamData, frame);
-		
-		
-
-		
-
-		
-		
-		
-
-		
+		new TeamController(memberData,teamData, frame);
+		new MemberController(memberData,teamData, frame);		
 		
 	}
 }

@@ -2,21 +2,19 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
 public class Member {
-	Calendar birthday;
-	String fullName;
-	String sex;
-	UUID ID;
+	private Calendar birthday;
+	private String fullName;
+	private String sex;
+	private UUID ID;
 	private ArrayList<Team> teams; //Azon csapatok vannak benne, aminek tagja
 	
-	public Member(String name, String sex, Calendar birthday){
+	Member(String name, String sex, Calendar birthday){
 		this.fullName = name;
 		this.sex = sex;
 		this.birthday = birthday;
@@ -35,21 +33,17 @@ public class Member {
 		
 		teams = new ArrayList<Team>();
 		
-		System.out.println("\n\nKeresett Id: " + this.ID);
-		for (int i =0; i<teamData.getNumberOfTeams(); i++) {
-			ArrayList<Member> membersOfTeam = teamData.getTeam(i).getMembers();
+		//A külsõ ciklusban végigiterálunk a csapatokon
+		for (int i =0; i<teamData.getRowCount(); i++) {
+			ArrayList<Member> membersOfTeam = teamData.getTeam(i).getMembers(); //Elkérjük a csapatban szereplõ tagokat
 			
+			//Majd végigmegyünk a tagokon, és megnézzük, hogy rgyezik-e az ID. 
 			for (Member member : membersOfTeam) {
 				if(member.getID().toString().equals(this.ID.toString())) {
 					teams.add(teamData.getTeam(i)); //Ha megtaláltuk benne a tag id-t, akkor abban a csapatban szerepel a tag.
 					break;
 				}					
 			}
-		}
-		
-		System.out.println(fullName + " ezekben a csapatokban van benne: ");
-		for (Team team : teams) {
-			System.out.println(team.getName());
 		}
 		
 		return teams;

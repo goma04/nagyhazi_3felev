@@ -1,44 +1,30 @@
 package dataStorage;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.*;
-
 import model.MemberData;
 import model.Team;
 import model.Member;
 import model.TeamData;
 import view.ApplicationFrame;
 
-import java.io.FileNotFoundException;
-
 public class DataController {
-	TeamData newTeamData, teamData;
-	MemberData newMemberData, memberData;
-	JFrame frame;
+	private TeamData  teamData;
+	private MemberData  memberData;
+	private JFrame frame;
 
 	public DataController(ApplicationFrame frame) {
 		this.frame = frame;
@@ -89,7 +75,7 @@ public class DataController {
 		doc.appendChild(rootElement);
 
 		for (int i = 0; i < data.getRowCount(); i++) {
-			System.out.println("teamdata mentõdik");
+			
 			// member element
 			Element member = doc.createElement("member");
 			rootElement.appendChild(member);
@@ -99,7 +85,7 @@ public class DataController {
 
 	}
 
-	public void saveData(TeamData teamData, MemberData memberData) {
+	private void saveData(TeamData teamData, MemberData memberData) {
 
 		System.out.println("saveData()");
 		try {

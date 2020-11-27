@@ -1,28 +1,19 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
+
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
-import javax.swing.table.TableModel;
-
 import model.MemberData;
-import model.TeamData;
+
 
 
 public class NewTeamUI extends NewThingUI {
 	private JButton foci, kosar, kezi, addMember;
 	private JTextField coach1, coach2, girlNumber, leaderName, annualSponsorship, name;
-	private MemberData memberData;
 	private JComboBox<Object> members;
 	private boolean football, handball, basketball; //azt mondják meg, hogy amikor mentünk csapatot, melyik csapatot választotta a felhasználó (tehát épp milyen csapatot kell felvenni)
 
-	public NewTeamUI(ApplicationFrame frame, MemberData memberData) {
+	public NewTeamUI(ApplicationFrame frame) {
 		super(frame);
 
 		foci = new JButton("Labdarugás");
@@ -35,7 +26,6 @@ public class NewTeamUI extends NewThingUI {
 		leaderName = new JTextField();
 		name = new JTextField();
 		annualSponsorship = new JTextField();
-		this.memberData = memberData;
 		football =false;
 		handball =false;
 		basketball =false;
@@ -147,20 +137,7 @@ public class NewTeamUI extends NewThingUI {
 	}
 
 	
-	public void displayMembers() {
-		frame.removeOldComponents();
-
-		top.add(new JLabel("Válassza ki azokat a tagokat, akik benne vannak a csapatba!"));
-		
-		JTable table = new JTable(memberData);
-		table.setFillsViewportHeight(true);
-		JScrollPane scrollPane = new JScrollPane(table);
-		
-		
-		center.add(scrollPane, BorderLayout.CENTER);
-		
-		center.validate();
-	}
+	
 	
 	//Miután megadtuk egy csapat adatait, lehetõség van tagokat felvenni. Az ehhez szükséges combo boxot és label-t jeleníti meg
 	public void displayFinalStageBottom(MemberData memberData) {

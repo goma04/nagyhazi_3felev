@@ -1,13 +1,16 @@
 package model;
 
-import java.util.Date;
+
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+
 
 import javax.swing.table.AbstractTableModel;
 
+import exception.MemberNotFound;
+
 //Az AbstractTableModel osztály alapértelmezett implementációt ad a TableModel interface-nek, ezért örököl tõle
+@SuppressWarnings("serial")
 public class MemberData extends AbstractTableModel {
 	private ArrayList<Member> members;
 	
@@ -18,39 +21,23 @@ public class MemberData extends AbstractTableModel {
 	public ArrayList<Member> getMembers(){
 		return members;
 	}
-
-	public Member getMemberById(String ID) {
-		System.out.println("A KEresett ID: " + ID);
+	
+	public Member getMemberById(String ID) throws MemberNotFound{
 		for (Member member : members) {
 			System.out.println("ID:: " +member.getID());
 			if(member.getID().toString().equals(ID)) {
-				
 				return member;
 			}
 		}
 		
-		return null; //MemberNotFoundException?
+		throw new MemberNotFound("Member not found");
 	}
 	
 
 	public void addMember(String name, String sex, Calendar birthday) {
 		members.add(new Member(name, sex, birthday));
 	}
-
-	// Megadja hogy hány tag tárolódik
-	public int memberNumber() {
-		return members.size();
-	}
-
 	
-	public void printData() {
-		for (int i = 0; i < members.size(); i++) {
-			System.out.println(members.get(i).getFullName() + " " + members.get(i).getSex() + " "
-					+ members.get(i).getBirthday().get(Calendar.YEAR) + " "
-					+ members.get(i).getBirthday().get(Calendar.MONTH) + " "
-					+ members.get(i).getBirthday().get(Calendar.DATE) + " " + members.get(i).getID().toString());
-		}
-	}
 
 	@Override
 	public String getColumnName(int index) {
@@ -87,9 +74,11 @@ public class MemberData extends AbstractTableModel {
 		case 1:
 			return tempMember.getFullName();
 		case 2:
-			String year = String.valueOf(tempMember.getBirthday().get(Calendar.YEAR));
-			String month = String.valueOf(tempMember.getBirthday().get(Calendar.MONTH));
-			String day = String.valueOf(tempMember.getBirthday().get(Calendar.DATE));
+			Calendar birthday = tempMember.getBirthday();
+			
+			String year = String.valueOf(birthday.get(Calendar.YEAR));
+			String month = String.valueOf(birthday.get(Calendar.MONTH));
+			String day = String.valueOf(birthday.get(Calendar.DATE));
 
 			return year + " " + month + " " + day;
 		case 3:

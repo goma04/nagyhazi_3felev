@@ -1,20 +1,14 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.*;
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
+
+@SuppressWarnings("serial")
 public class ApplicationFrame extends JFrame {
-	JMenu csapatKezeles;
-	JMenu tagKezeles;
-	JMenu sugo;
-	JMenuItem[] menupont;
-	JPanel top, center, bottom;
+	private JMenu csapatKezeles, tagKezeles;
+	private JMenuItem[] menupont;
+	private JPanel top, center, bottom;
 
 	private void initMenu() {
 		JMenuBar menubar = new JMenuBar();
@@ -29,7 +23,7 @@ public class ApplicationFrame extends JFrame {
 		menupont[3] = new JMenuItem("Tag felvétele");
 		menupont[4] = new JMenuItem("Tagok listázása");
 		menupont[5] = new JMenuItem("Tagokhoz tartozó csapatok");
-		menupont[6] = new JMenuItem("Csapat tagjainak módosítása");
+		menupont[6] = new JMenuItem("Csapat tagjainak kezelése");
 
 		
 
@@ -111,7 +105,7 @@ public class ApplicationFrame extends JFrame {
 	}
 
 	//Visszaállítja a layoutot a kezdeti, üres állapotba
-	public void removeOldComponents() {
+	void removeOldComponents() {
 		Component[] componentsTop = top.getComponents();
 		Component[] componentsCenter = center.getComponents();
 		Component[] componentsBottom = bottom.getComponents();

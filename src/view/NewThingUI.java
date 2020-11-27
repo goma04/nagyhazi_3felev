@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 
 //azon osztályok õse, amik valamilyen menüpontot jelenítenek meg, ahol új dolgot lehet felvinni a nyilvántartásba
-public abstract class NewThingUI {
+abstract class NewThingUI {
 	protected JPanel top, bottom, center;
 	protected ApplicationFrame frame; //kompozíció
 	protected JButton tovabb, vissza;
@@ -36,7 +36,7 @@ public abstract class NewThingUI {
 		tovabb.setVisible(true);
 	}
 
-	public NewThingUI(ApplicationFrame frame) {
+	NewThingUI(ApplicationFrame frame) {
 		this.frame = frame;
 		this.top = frame.getTop();
 		this.center = frame.getCenter();

@@ -1,19 +1,13 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
-
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
-
 import model.Member;
 import model.MemberData;
 import model.Team;
@@ -21,12 +15,11 @@ import model.TeamData;
 
 public class ListTeamUI {
 	private JPanel top, bottom, center;
-	protected ApplicationFrame frame;
+	private  ApplicationFrame frame;
 	private TeamData teamData;
 	private JComboBox<Object> teams, members, membersOfTeamComboBox;
 	private JButton ok, back, delete, add;
-	private MemberData memberData;
-	Team selectedTeam;
+	private Team selectedTeam;
 	private Member selectedMemberAdd, selectedMemberDelete;
 
 	public ListTeamUI(ApplicationFrame frame, TeamData teamData, MemberData memberData) {
@@ -39,7 +32,6 @@ public class ListTeamUI {
 		this.back = new JButton("Vissza");
 		this.delete = new JButton("Törlés a csapatból");
 		this.add = new JButton("Tag hozzáadása");
-		this.memberData = memberData;
 	}
 
 	public void displayListTeam() {

@@ -2,9 +2,7 @@ package dataStorage;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.UUID;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -13,14 +11,10 @@ import model.Member;
 
 
 //A beolvasott XML fájlt dolgozza fel (tagok) 
-public class MemberHandler extends DefaultHandler {
+class MemberHandler extends DefaultHandler {
 	private ArrayList<Member> list;
 	private Member member;
-	/*Calendar birthday;
-	String fullName;
-	String sex;
-	UUID ID;*/
-	boolean nameTag, idTag, sexTag, birthdayTag;
+	private boolean nameTag, idTag, sexTag, birthdayTag;
 
 	MemberHandler() {
 		list = new ArrayList<Member>();

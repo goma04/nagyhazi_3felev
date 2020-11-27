@@ -6,9 +6,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Handball extends Team{
-	private double annualSponsorship;
+	private int annualSponsorship;
 	
-	public Handball(ArrayList<Member> members, String name, double annualSponsorship) {
+	Handball(ArrayList<Member> members, String name, int annualSponsorship) {
 		super(members, name);
 		this.annualSponsorship = annualSponsorship;
 	}
@@ -22,7 +22,7 @@ public class Handball extends Team{
 	@Override
 	public String getAdditioinalInformation() {
 		
-		return "Évi támogatás összege:  " + annualSponsorship + "Ft";
+		return "Kézilabda csapat. Évi támogatás összege:  " + annualSponsorship + "Ft";
 	}
 
 
@@ -55,7 +55,7 @@ public class Handball extends Team{
 		return annualSponsorship;
 	}
 
-	public void setAnnualSponsorship(double annualSponsorship) {
+	public void setAnnualSponsorship(int annualSponsorship) {
 		this.annualSponsorship = annualSponsorship;
 	}
 	

@@ -1,21 +1,18 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
 
+@SuppressWarnings("serial")
 public class TeamData extends AbstractTableModel {
 
 	// Ez a tagváltozó tárolja a csapatok adatait (heterogén kollekció)
-	ArrayList<Team> teams;
-	
+	private ArrayList<Team> teams;
+
 	public TeamData(ArrayList<Team> teamList) {
 		teams = teamList;
 	}
-	
-	
+
 	public void deleteTeam(Object object) {
 		teams.remove(object);
 	}
@@ -24,22 +21,12 @@ public class TeamData extends AbstractTableModel {
 		teams.add(new Football(coach1, coach2, name, members));
 	}
 
-	public void addHandballTeam(ArrayList<Member> members, String name, double annualSponsorship) {
+	public void addHandballTeam(ArrayList<Member> members, String name, int annualSponsorship) {
 		teams.add(new Handball(members, name, annualSponsorship));
 	}
 
 	public void addBasketballTeam(String name, ArrayList<Member> members, String leaderName, int girlsNo) {
 		teams.add(new Basketball(members, name, girlsNo, leaderName));
-	}
-
-	public void printTeams() {
-		for (Team team : teams) {
-			System.out.println("ID: " + team.getID() + "\nNév: " + team.getName());
-		}
-	}
-	
-	public int getNumberOfTeams() {
-		return teams.size();
 	}
 
 	@Override
@@ -83,13 +70,14 @@ public class TeamData extends AbstractTableModel {
 		}
 		return "undefinded";
 	}
-	
+
+	// Megadja az i. csapatot
 	public Team getTeam(int index) {
 		return teams.get(index);
 	}
-	
-	//Amikor jcombo box-ban kell megjeleníteni a tagokat, egy tömbben kell átadni
-		public Object[] getAsArray() {
-			return teams.toArray();
-		}
+
+	// Amikor jcombo box-ban kell megjeleníteni a tagokat, egy tömbben kell átadni
+	public Object[] getAsArray() {
+		return teams.toArray();
+	}
 }

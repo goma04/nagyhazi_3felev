@@ -9,7 +9,7 @@ public class Basketball extends Team{
 	private String leaderName;
 	
 	
-	public Basketball(ArrayList<Member> members, String name, int girlsNo, String leaderName) {
+	Basketball(ArrayList<Member> members, String name, int girlsNo, String leaderName) {
 		super(members, name);
 		this.girlsNo = girlsNo;
 		this.leaderName = leaderName;
@@ -25,7 +25,7 @@ public class Basketball extends Team{
 	@Override
 	public String getAdditioinalInformation() {
 		
-		return "Pompom lányok létszáma, vezetõ neve:  " + girlsNo + ",  " + leaderName;
+		return "Kosárlabda csapat. Pompom lányok létszáma, vezetõ neve:  " + girlsNo + ",  " + leaderName;
 	}
 
 

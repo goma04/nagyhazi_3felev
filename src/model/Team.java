@@ -5,15 +5,13 @@ import java.util.UUID;
 import org.w3c.dom.*;
 
 import exception.ElementAlreadyInList;
-
-import java.awt.AWTEvent;
 import java.util.ArrayList;
 
 public abstract class Team {
-	int memberNo;
-	UUID ID;
-	ArrayList<Member> members; 
-	String name;
+	protected int memberNo;
+	protected UUID ID;
+	protected ArrayList<Member> members;  
+	protected String name;
 	
 	Team(ArrayList<Member> members, String name){
 		this.memberNo = members.size();
@@ -31,10 +29,6 @@ public abstract class Team {
 	
 	public String toString() {
 		return name + " (" + ID.toString().substring(0,6) + ")";
-	}
-	
-	public void printTeam() {
-		System.out.println("letszam: " + memberNo +"  id: " + ID.toString().substring(0,8));
 	}
 	
 	public void setMemberNo(int i) {
@@ -66,8 +60,6 @@ public abstract class Team {
 		memberNo++;
 	}
 
-	
-
 	public int getMemberNo() {
 		return memberNo;
 	}
@@ -75,8 +67,6 @@ public abstract class Team {
 	public String getName() {
 		return name;
 	}
-	
-	
 	
 	public void setMembers(ArrayList<Member> members) {
 		this.members = members;
@@ -87,31 +77,15 @@ public abstract class Team {
 	}
 
 	protected void saveMembers(Element element, Document doc) {
-		
 		for (int i=0; i<members.size(); i++) {
 			Element member = doc.createElement("member");
 			member.appendChild(doc.createTextNode(members.get(i).getID().toString()));
 			element.appendChild(member);
-			
-			//System.out.println("Azonosító a tagnak: " + members.get(i).getID().toString());
-		}
-		
-		
-		
-	}
+		}		
+	}	
 	
-	
-	//A root elemhez írja hozzá az adatokat
+	//A kapott elemhez írja hozzá az adatokat
 	public abstract void writeToFile(Element teamElement, Document doc);
-	
-	
 
-	public abstract String getAdditioinalInformation();
-
-	public Member getMember(int i) {
-		return members.get(i);
-	}
-	
-	
-	
+	public abstract String getAdditioinalInformation();	
 }
