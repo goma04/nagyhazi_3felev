@@ -11,10 +11,8 @@ import javax.swing.JTextField;
 public class NewMemberUI extends NewThingUI {
 	private JTextField fullName;
 	private String[] sex;
-	private JComboBox<String> sexOption;
-	private JComboBox<Integer> choseDay;
-	private JComboBox<String> choseMonth;
-	private JComboBox<Integer> choseYear;
+	private JComboBox<String> sexOption, choseMonth;
+	private JComboBox<Integer> choseDay, choseYear;
 
 	public NewMemberUI(ApplicationFrame frame) {
 		super(frame);
@@ -62,8 +60,10 @@ public class NewMemberUI extends NewThingUI {
 		top.validate(); // Frissítjük a tartalmat ezzel a függvénnyel
 
 		center.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 10)); // Hogy ne lógjon rá a szélére
-		center.setLayout(new GridLayout(3, 2, 20, 20));
+		center.setLayout(new GridLayout(6, 2, 20, 20));
 
+		fantomPanel(2, center);
+		
 		center.add(new JLabel("Teljes név: "));
 		fullName.setText("");
 		center.add(fullName);
@@ -79,6 +79,7 @@ public class NewMemberUI extends NewThingUI {
 		dateChangePanel.add(choseMonth);
 		dateChangePanel.add(choseYear);
 		
+		fantomPanel(4, center);
 
 		tovabb.setText("Mentés");	
 		
@@ -151,6 +152,8 @@ public class NewMemberUI extends NewThingUI {
 	public String getSex() {
 		return (String) (sexOption.getSelectedItem());
 	}
+
+	
 
 	
 

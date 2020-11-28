@@ -74,7 +74,6 @@ public class ListTeamUI extends UI{
 		bottom.add(ok);
 		bottom.validate();
 		frame.pack();
-
 	}
 	
 	private MemberData membersOfTeam() {
@@ -89,21 +88,16 @@ public class ListTeamUI extends UI{
 
 		top.validate(); // Frissítjük a tartalmat ezzel a függvénnyel
 
-		//MemberData membersOfTeam = new MemberData(selectedTeam.getMembers());
-
-		// System.out.println("Selected team: " + selectedTeam.toString());
-
 		JTable table = new JTable(membersOfTeam());
 
 		table.setFillsViewportHeight(true);
 		JScrollPane scrollPane = new JScrollPane(table);
 
 		center.add(scrollPane, BorderLayout.CENTER);
-
 		center.validate();
 	}
 
-	public void displayListMembersOfTeam() {
+	/*public void displayListMembersOfTeam() {
 
 		displayMemberList();
 
@@ -113,7 +107,7 @@ public class ListTeamUI extends UI{
 		bottom.validate();
 		frame.pack();
 
-	}
+	}*/
 
 	public JButton getOk() {
 		return ok;
@@ -137,7 +131,12 @@ public class ListTeamUI extends UI{
 	}
 
 	public void displayModifyTeamMembers(MemberData memberData) {
-		displayListMembersOfTeam();
+		displayMemberList();
+
+		bottom.add(back);
+		back.setVisible(true);
+
+		
 
 		// A jcombobox egy Object tömböt vár
 		Object[] memberInfo = memberData.getAsArray();
@@ -147,7 +146,7 @@ public class ListTeamUI extends UI{
 		membersOfTeamComboBox = new JComboBox<Object>(membersOfTeam().getAsArray());
 
 		bottom.add(back);	
-		bottom.add(new JLabel("                                                    ")); // Hogy jobban szét lehessen választani		 
+		bottom.add(new JLabel("                                                    ")); // Hogy jobban tagolódjanak	 
 		bottom.add(members);
 		bottom.add(add);
 		
@@ -166,7 +165,6 @@ public class ListTeamUI extends UI{
 	public JButton getDelete() {
 		return delete;
 	}
-
 	
 
 	public JButton getAdd() {
@@ -193,17 +191,10 @@ public class ListTeamUI extends UI{
 		return members;
 	}
 
-	public void setMembers(JComboBox<Object> members) {
-		this.members = members;
-	}
-
 	public JComboBox<Object> getMembersOfTeamComboBox() {
 		return membersOfTeamComboBox;
 	}
 
-	public void setMembersOfTeamComboBox(JComboBox<Object> membersOfTeamComboBox) {
-		this.membersOfTeamComboBox = membersOfTeamComboBox;
-	}
 
 
 	

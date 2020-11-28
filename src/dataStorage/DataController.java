@@ -1,12 +1,16 @@
 package dataStorage;
 
-import java.util.ArrayList;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import javax.swing.JFrame;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+import javax.swing.PopupFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
@@ -15,56 +19,45 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
 import model.MemberData;
-import model.Team;
-import model.Member;
 import model.TeamData;
 import view.ApplicationFrame;
+import view.PopUpMessage;
 
 public class DataController {
-	private TeamData  teamData;
-	private MemberData  memberData;
-	private JFrame frame;
+	private TeamData teamData;
+	private MemberData memberData;
 
 	public DataController(ApplicationFrame frame) {
-		this.frame = frame;
-		// this.newMemberData = new MemberData(loadMemberData());
-		// this.newTeamData = new TeamData(loadTeamData());
-
-	}
-
-	public void addWindowsListenerToData(TeamData teamData, MemberData memberData) {
+		
+		loadMemberData();
+		loadTeamData();
+		
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				try {
-					saveData(teamData, memberData);
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+					saveData(teamData, memberData);				
 			}
-		});
+		});		
 	}
 
 	private void saveTeamData(TeamData data, Document doc) {
-
+		
 		Element rootElement = doc.createElement("teams");
 		doc.appendChild(rootElement);
 
 		// Heterogén kollekció miatt a teamData összes elemén meghívom azt a függvényt,
 		// ami menti az adatokat az xml struktúrába
-		for (int i = 0; i < data.getRowCount(); i++) {
-			Element team = doc.createElement("team");
-			rootElement.appendChild(team);
+		if(data!=null) {
+			for (int i = 0; i < data.getRowCount(); i++) {
+				Element team = doc.createElement("team");
+				rootElement.appendChild(team);
 
-			data.getTeam(i).writeToFile(team, doc);
-			
-			for (Member member : data.getTeam(i).getMembers()) {
-				System.out.println(i + "  " + member.getID().toString());
-			}		
-			
+				data.getTeam(i).writeToFile(team, doc);
+			}
 		}
-
 	}
 
 	// Beleírja a tagok adatait a megadott dokumentumba.
@@ -75,19 +68,16 @@ public class DataController {
 		doc.appendChild(rootElement);
 
 		for (int i = 0; i < data.getRowCount(); i++) {
-			
 			// member element
 			Element member = doc.createElement("member");
 			rootElement.appendChild(member);
 
 			data.getMember(i).writeToFile(member, doc);
 		}
-
 	}
 
 	private void saveData(TeamData teamData, MemberData memberData) {
 
-		System.out.println("saveData()");
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -97,7 +87,7 @@ public class DataController {
 			saveMemberData(memberData, docForMembers);
 			saveTeamData(teamData, docForTeams);
 
-			// write the content into xml file
+			//Beírjuk az adatokat az XML fájlba
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource sourceMembers = new DOMSource(docForMembers);
@@ -109,46 +99,44 @@ public class DataController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			new PopUpMessage("Hiba a fájl mentése alatt",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	public TeamData loadTeamData() {
+	private void loadTeamData() {
 		TeamHandler handler = new TeamHandler(memberData);
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		try {
 			SAXParser p = factory.newSAXParser();
 			p.parse(new java.io.File("teams.xml"), handler);
+			teamData = new TeamData(handler.getTeams());
+		} catch (FileNotFoundException e) {
+			teamData = null;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return new TeamData(new ArrayList<Team>());			
-		}
-
-		teamData = new TeamData(handler.getTeams());
-
-		
-		
-		
-
-		return teamData;
+			new PopUpMessage("Hiba a betöltés során", JOptionPane.ERROR_MESSAGE);
+		} 		
 	}
 
-	public MemberData loadMemberData() {
+	private void loadMemberData() {
 		MemberHandler handler = new MemberHandler();
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		try {
 			SAXParser p = factory.newSAXParser();
 			p.parse(new java.io.File("members.xml"), handler);
+			memberData = new MemberData(handler.getMembers());
+		} catch (FileNotFoundException e) {
+			memberData = null;
 		} catch (Exception e) {
-			return new MemberData(new ArrayList<Member>());
-		}
+			new PopUpMessage("Hiba a betöltés során", JOptionPane.ERROR_MESSAGE);
+		} 		
+	}
 
-		memberData = new MemberData(handler.getMembers());
-
-		
-		
-
+	public TeamData getTeamData() {
+		return teamData;
+	}
+	
+	public MemberData getMemberData() {
 		return memberData;
-
 	}
 
 }

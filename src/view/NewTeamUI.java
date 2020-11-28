@@ -122,6 +122,7 @@ public class NewTeamUI extends NewThingUI {
 		fantomPanel(2, center);
 		center.add(new JLabel("Évi támogatás mértéke: "));
 		center.add(annualSponsorship);
+		annualSponsorship.setText("");
 		displayName();
 
 		setComponentsVisible();

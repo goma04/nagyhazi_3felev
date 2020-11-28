@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
 import exception.ElementAlreadyInList;
 import model.MemberData;
 import model.Team;
@@ -68,10 +67,11 @@ public class TeamController extends Controller {
 	// Mit csinál a tovább gomb
 	private void setTovabbButton() {
 		newTeamUI.getTovabb().addActionListener(e -> {
-			/* Ha a sportágat kiválasztották, megadtuk a megfelelő adatokat, és ekkor
-			 nyomnak a tovább gombra.
-			 Ilyenkor meg kell jeleníteni az összes tagot, hogy a felhasználó választani
-			 tudjun, hogy kik kerülnek bele a csapatba*/
+			/*
+			 * Ha a sportágat kiválasztották, megadtuk a megfelelő adatokat, és ekkor
+			 * nyomnak a tovább gombra. Ilyenkor meg kell jeleníteni az összes tagot, hogy a
+			 * felhasználó választani tudjun, hogy kik kerülnek bele a csapatba
+			 */
 			if (e.getActionCommand() == "tovabbNewTeam") {
 				(new ListMembersUI(frame, memberData, teamData)).displayListMembersUI();
 				members = new ArrayList<Member>();
@@ -79,20 +79,34 @@ public class TeamController extends Controller {
 			}
 			// Ekkor a tovább gomb szövege: "Mentés". Erre nyomva elmenti a csapatot.
 			else if (e.getActionCommand() == "saveTeam") {
-				if (newTeamUI.getFootball()) {
-					teamData.addFootballTeam(newTeamUI.getName().getText(), members, newTeamUI.getCoach1().getText(),
-							newTeamUI.getCoach2().getText());
-				} else if (newTeamUI.getBasketball()) {
-					teamData.addBasketballTeam(newTeamUI.getName().getText(), members,
-							newTeamUI.getLeaderName().getText(), Integer.parseInt(newTeamUI.getGirlNumber().getText()));
-				} else if (newTeamUI.getHandball()) {
-					teamData.addHandballTeam(members, newTeamUI.getName().getText(),
-							Integer.parseInt(newTeamUI.getAnnualSponsorship().getText()));
-				}
-				newTeamUI.setAllSportFalse();
-				new PopUpMessage("Csapat sikeresen elmentve!", JOptionPane.INFORMATION_MESSAGE);
-				listTeamUI.displayListTeam();
 
+				// Ha rossz formátumban adta meg az adatot, visszadobja az adatmegadó oldalra
+				try {
+					if (newTeamUI.getFootball()) {
+						teamData.addFootballTeam(newTeamUI.getName().getText(), members,
+								newTeamUI.getCoach1().getText(), newTeamUI.getCoach2().getText());
+					} else if (newTeamUI.getBasketball()) {
+						teamData.addBasketballTeam(newTeamUI.getName().getText(), members,
+								newTeamUI.getLeaderName().getText(),
+								Integer.parseInt(newTeamUI.getGirlNumber().getText()));
+					} else if (newTeamUI.getHandball()) {
+						teamData.addHandballTeam(members, newTeamUI.getName().getText(),
+								Integer.parseInt(newTeamUI.getAnnualSponsorship().getText()));
+					}
+					newTeamUI.setAllSportFalse();
+					new PopUpMessage("Csapat sikeresen elmentve!", JOptionPane.INFORMATION_MESSAGE);
+					listTeamUI.displayListTeam();
+
+				} catch (NumberFormatException hiba) {
+					new PopUpMessage("Hibás formátumban adta meg a csapat adatait!", JOptionPane.ERROR_MESSAGE);
+					if (newTeamUI.getFootball()) {
+						newTeamUI.displayFootball();
+					} else if (newTeamUI.getBasketball()) {
+						newTeamUI.displayBasketball();
+					} else if (newTeamUI.getHandball()) {
+						newTeamUI.displayHandball();
+					}
+				}
 			}
 		});
 	}
@@ -109,7 +123,8 @@ public class TeamController extends Controller {
 	private void setDeleteMemberButton() {
 		listTeamUI.getDelete().addActionListener(e -> {
 			listTeamUI.setSelectedMemberDelete((Member) listTeamUI.getMembersOfTeamComboBox().getSelectedItem());
-			listTeamUI.getSelectedTeam().removeMember(listTeamUI.getSelectedMemberDelete()); // Töröljük a tagot a csapatból;
+			listTeamUI.getSelectedTeam().removeMember(listTeamUI.getSelectedMemberDelete()); // Töröljük a tagot a
+																								// csapatból;
 			listTeamUI.displayModifyTeamMembers(memberData);
 		});
 	}
@@ -130,8 +145,12 @@ public class TeamController extends Controller {
 	// Amikor csapathoz adunk tagot gomb (csapat felvételekor)
 	private void setAddNewMemberButton() {
 		newTeamUI.getAddMember().addActionListener(e -> {
-			members.add((Member) newTeamUI.getMembers().getSelectedItem());
-			new PopUpMessage("Tag hozzáadva a csapathoz!", JOptionPane.INFORMATION_MESSAGE);
+			if (members.contains((Member) newTeamUI.getMembers().getSelectedItem())) {
+				new PopUpMessage("Ez a tag már benne van a csapatban!", JOptionPane.ERROR_MESSAGE);
+			} else {
+				members.add((Member) newTeamUI.getMembers().getSelectedItem());
+				new PopUpMessage("Tag hozzáadva a csapathoz!", JOptionPane.INFORMATION_MESSAGE);
+			}
 		});
 	}
 
@@ -147,7 +166,8 @@ public class TeamController extends Controller {
 			if (e.getActionCommand() == "stage1") {
 				newTeamUI.displayChooseSport();
 				newTeamUI.setAllSportFalse();
-			}else if(e.getActionCommand() == "stage2") { //Ha stage2-nél nyomják meg, akkor az adatok megadása ablak jelenik meg
+			} else if (e.getActionCommand() == "stage2") { // Ha stage2-nél nyomják meg, akkor az adatok megadása ablak
+															// jelenik meg
 				if (newTeamUI.getFootball()) {
 					newTeamUI.displayFootball();
 				} else if (newTeamUI.getBasketball()) {

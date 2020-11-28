@@ -37,7 +37,6 @@ public class DeleteTeamUI extends UI{
 		deleteBtn.setVisible(true);
 		bottom.add(deleteBtn);
 		
-		
 
 		//bottomButtons();
 		bottom.validate();
@@ -49,17 +48,8 @@ public class DeleteTeamUI extends UI{
 		return deleteBtn;
 	}
 
-	public void setDeleteBtn(JButton deleteBtn) {
-		this.deleteBtn = deleteBtn;
-	}
-
 	public JComboBox<Object> getTeams() {
 		return teams;
 	}
-
-	public void setTeams(JComboBox<Object> teams) {
-		this.teams = teams;
-	}
-	
 	
 }

@@ -23,11 +23,9 @@ class TeamHandler extends DefaultHandler {
 	private Football footballTeam;
 	private Handball handballTeam;
 	private Basketball basketballTeam;
-	private String memberId, teamId;
 	private boolean nameTag, idTag, memberNumberTag, coach1Tag, coach2Tag, supportTag, girlsNoTag, leaderNameTag,
 			isFootball, isHandball, isBasketball, memberTag;
-	private int memberNumberTemp;
-	private int counter;
+
 
 	TeamHandler(MemberData memberData) {
 		list = new ArrayList<Team>();
@@ -44,8 +42,7 @@ class TeamHandler extends DefaultHandler {
 		idTag = false;
 		memberTag = false;
 		this.memberData = memberData;
-		counter = 0;
-		
+		members = new ArrayList<Member>();
 	}
 
 	// Elõször meg kell nézni, hogy milyen adathoz ért, késõbb ez alapján menti az
@@ -78,19 +75,12 @@ class TeamHandler extends DefaultHandler {
 			coach2Tag = true;
 		} else if (qName.equalsIgnoreCase("member")) {
 			memberTag = true;
-
-			if (counter == 0) {
-				members = new ArrayList<Member>();
-				counter++;
-			} else if (counter == memberNumberTemp - 1) {
-				counter = 0;				
-			} 
 		} else if(qName.equalsIgnoreCase("ID")) {
 			idTag = true;
 		}
 	}
 
-	// Amikor odaér a tag által tárolt szövegjez, fel kell dolgozni
+	// Amikor odaér az element által tárolt szöveghez, fel kell dolgozni
 	@Override
 	public void characters(char ch[], int start, int length) throws SAXException {
 		if (nameTag) {
@@ -104,7 +94,6 @@ class TeamHandler extends DefaultHandler {
 			nameTag = false;
 			
 		} else if (idTag) {
-			teamId = new String(ch, start, length);
 			if (isFootball) {
 				footballTeam.setID(UUID.fromString(new String(ch, start, length)));
 			} else if (isBasketball) {
@@ -126,9 +115,8 @@ class TeamHandler extends DefaultHandler {
 				handballTeam.setMemberNo(Integer.parseInt(new String(ch, start, length)));
 				isHandball = false;
 			}
-			memberNumberTemp = Integer.parseInt(new String(ch, start, length)); //Azért kell tudni, mert amikor beolvassuk a tagok id-jét, tudni kell mennyi van
-			memberNumberTag = false;
 			
+			memberNumberTag = false;			
 		} else if (supportTag) {
 			handballTeam.setAnnualSponsorship(Integer.parseInt(new String(ch, start, length)));
 			supportTag = false;
@@ -159,28 +147,23 @@ class TeamHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if (qName.equalsIgnoreCase("basketball")) {
 			basketballTeam.setMembers(members);
-			basketballTeam.setMembers(members);
 			list.add(basketballTeam);
 
 			members = new ArrayList<Member>();
 		} else if (qName.equalsIgnoreCase("football")) {
-			footballTeam.setMembers(members);
 			footballTeam.setMembers(members);
 			list.add(footballTeam);
 			
 			members = new ArrayList<Member>();
 		} else if (qName.equalsIgnoreCase("handball")) {
 			handballTeam.setMembers(members);
-			handballTeam.setMembers(members);
 			list.add(handballTeam);
 			
 			members = new ArrayList<Member>();
-		}
-		
+		}		
 	}
 
 	public ArrayList<Team> getTeams() {
 		return list;
 	}
-
 }

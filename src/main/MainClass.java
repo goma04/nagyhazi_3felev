@@ -17,10 +17,10 @@ public class MainClass {
 		DataController dataController = new DataController(frame);
 		
 		
-		MemberData memberData = dataController.loadMemberData();
-		TeamData teamData = dataController.loadTeamData();
+		MemberData memberData = dataController.getMemberData();
+		TeamData teamData = dataController.getTeamData();
 		
-		dataController.addWindowsListenerToData(teamData, memberData);
+		
 		
 		new TeamController(memberData,teamData, frame);
 		new MemberController(memberData,teamData, frame);		

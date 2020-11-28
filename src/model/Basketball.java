@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.w3c.dom.*;
 
-import exception.ExpectedIntPassedString;
-
 public class Basketball extends Team{
 	private int girlsNo;
 	private String leaderName;

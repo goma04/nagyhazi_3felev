@@ -49,7 +49,7 @@ class MemberHandler extends DefaultHandler {
 	}
 
 	
-	//Amikor odaér a tag által tárolt szövegjez, fel kell dolgozni
+	//Amikor odaér a tag által tárolt szöveghez, fel kell dolgozni
 	@Override
 	public void characters(char ch[], int start, int length) throws SAXException {
 

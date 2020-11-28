@@ -24,7 +24,6 @@ public class MemberData extends AbstractTableModel {
 	
 	public Member getMemberById(String ID) throws MemberNotFound{
 		for (Member member : members) {
-			System.out.println("ID:: " +member.getID());
 			if(member.getID().toString().equals(ID)) {
 				return member;
 			}
